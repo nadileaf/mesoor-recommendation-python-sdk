@@ -1,0 +1,129 @@
+syntax = "proto3";
+
+package com.mesoor.mesoor_recommendation.sdk;
+import "google/protobuf/wrappers.proto";
+
+message JobDetail {
+  string name = 1;
+  string description = 2;
+  string employer = 3;
+  google.protobuf.Int64Value publish_date_ts = 4;
+  google.protobuf.Int64Value expire_date_ts = 5;
+  repeated string industries = 6;
+  repeated int32 location_ids = 7;
+  google.protobuf.StringValue department = 8;
+  int32 years = 9;
+  int32 degree = 10;
+  int32 salary_low = 11;
+  int32 salary_high = 12;
+  repeated string categories = 13;
+}
+
+message Resume {
+  message Basic {
+    google.protobuf.Int32Value location_id = 1;
+    google.protobuf.Int64Value birthday_ts = 2;
+  }
+  message Work {
+    google.protobuf.StringValue position = 1;
+    google.protobuf.StringValue company = 2;
+    google.protobuf.StringValue description = 3;
+    google.protobuf.StringValue department = 4;
+    google.protobuf.StringValue industry = 5;
+    google.protobuf.StringValue responsibility = 6;
+    google.protobuf.Int64Value start_date_ts = 100;
+    google.protobuf.Int64Value end_date_ts = 101;
+    bool until_now = 102;
+  }
+  message Project {
+    google.protobuf.StringValue position = 1;
+    google.protobuf.StringValue company = 2;
+    google.protobuf.StringValue description = 3;
+    google.protobuf.StringValue name = 4;
+    google.protobuf.StringValue responsibility = 5;
+    google.protobuf.StringValue department = 6;
+    google.protobuf.Int64Value start_date_ts = 100;
+    google.protobuf.Int64Value end_date_ts = 101;
+    bool until_now = 102;
+  }
+
+  message Intern {
+    google.protobuf.StringValue position = 1;
+    google.protobuf.StringValue company = 2;
+    google.protobuf.StringValue description = 3;
+    google.protobuf.StringValue responsibility = 4;
+    google.protobuf.StringValue department = 5;
+    google.protobuf.Int64Value start_date_ts = 100;
+    google.protobuf.Int64Value end_date_ts = 101;
+    bool until_now = 102;
+  }
+
+  message Education {
+    google.protobuf.StringValue major = 1;
+    google.protobuf.StringValue degree = 2;
+    google.protobuf.StringValue school = 3;
+    google.protobuf.Int64Value start_date_ts = 100;
+    google.protobuf.Int64Value end_date_ts = 101;
+    bool until_now = 102;
+  }
+
+  repeated Work works = 1;
+  repeated Project projects = 2;
+  repeated Intern interns = 3;
+  repeated Education educations = 4;
+  Basic basic = 5;
+  google.protobuf.Int64Value update_date_ts = 6;
+}
+
+message Job {
+  JobDetail job_detail = 1;
+  int32 status = 2;
+}
+
+message Candidate {
+  Resume resume = 1;
+  int32 status = 2;
+}
+
+
+message SaveJobCommand {
+  string id = 1;
+  Job job = 2;
+}
+
+message SaveCandidateCommand {
+  string id = 1;
+  Candidate candidate = 2;
+}
+
+message RecommendCandidatesByJobCommand {
+  string job_id = 1;
+  int32 size = 2;
+}
+
+message EmptyResponse {
+}
+
+message RecommendedCandidatesRepresentation {
+  message Reason {
+    repeated string job_name = 1;
+    map<string, int32> industry_year = 2;
+    repeated string company_name = 3;
+    repeated string skill = 4;
+    repeated string topic = 5;
+    repeated string major = 6;
+    repeated string school_tags = 7;
+  }
+  message RecommendedCandidateRepresentation {
+    string id = 1;
+    float score = 2;
+    Reason reason = 3;
+  }
+  repeated RecommendedCandidateRepresentation candidates = 1;
+}
+
+service MesoorRecommendationController {
+  rpc SaveJob(SaveJobCommand) returns (EmptyResponse);
+  rpc SaveCandidate(SaveCandidateCommand) returns (EmptyResponse);
+  rpc RecommendCandidatesByJob(RecommendCandidatesByJobCommand) returns (RecommendedCandidatesRepresentation);
+}
