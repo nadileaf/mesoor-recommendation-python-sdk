@@ -113,5 +113,5 @@
     ```python
     # 获取按 Job 推荐的 Candidate
     job_id = 'foo_id'
-    result = await service.recommend_candidates_by_job(job_id=job_id)
+    result = await service.recommend_candidates_by_job(job_id=job_id, size=10)
     ```
