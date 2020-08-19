@@ -1,4 +1,6 @@
 # Mesoor 推荐系统 Python SDK
+* 环境要求  
+    Python >= 3.7
 * 安装  
     ```shell script
     pip install -r requirements.txt
