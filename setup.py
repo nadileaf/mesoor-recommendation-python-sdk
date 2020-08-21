@@ -5,12 +5,12 @@ REQUIRES = [
     'grpcio-tools==1.31.0'
 ]
 setuptools.setup(
-    name='mesoor-recommendation-sdk',
+    name='mesoor-recommendation-python-sdk',
     version='0.0.1',
     author='Mesoor',
     author_email='',
     description='Python SDK for Mesoor recommendation system',
-    url="https://github.com/nadileaf/mesoor-recommendation-sdk",
+    url="https://github.com/nadileaf/mesoor-recommendation-python-sdk",
     license='MIT License',
     packages=setuptools.find_packages(),
     classifiers=[
