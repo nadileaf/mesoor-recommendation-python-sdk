@@ -46,7 +46,7 @@ class MesoorRecommendation:
                 candidate=candidate.to_sdk_representation()
             )
         except Exception as e:
-            raise RemoteServerError(f'Save job [{id}] error') from e
+            raise RemoteServerError(f'Save candidate [{id}] error') from e
 
     async def recommend_candidates_by_job(self, job_id: str, size: int = 10) -> List[models.RecommendedCandidate]:
         """
