@@ -1,7 +1,7 @@
 import asyncio
 
 from mesoor_recommendation_sdk import models, MesoorRecommendation
-service = MesoorRecommendation('10.10.10.201:50060')
+service = MesoorRecommendation('localhost:50051')
 
 
 # 保存 Job
